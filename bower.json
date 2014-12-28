@@ -1,0 +1,28 @@
+{
+  "name": "ng-watchcollection-polyfill",
+  "version": "0.1.0",
+  "description": "A module that backports $watchCollection to pre 1.2 angular",
+  "authors": [
+    "Thodoris Greasidis"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/thgreasi/ng-watchcollection-polyfill",
+  "main": "./src/ng-watchcollection-polyfill.js",
+  "keywords": [
+    "watchCollecion",
+    "polyfill",
+    "backport"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test*"
+  ],
+  "dependencies": {
+    "angular": "~1.0.x"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.0.x"
+  }
+}
