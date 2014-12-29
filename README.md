@@ -4,7 +4,7 @@ A module that backports $watchCollection to pre 1.2 AngularJS.
 
 ## Requirements
 
-- AngularJS < 1.0.x (will not run or break later versions)
+- AngularJS <= 1.0.x (will not run or break later versions)
 
 ## Usage
 
