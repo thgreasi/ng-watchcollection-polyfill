@@ -1,22 +1,19 @@
+/* global provideLog: true */
 'use strict';
 
 // Thanks angular.js v1.2
 describe('Scope', function() {
 
+  beforeEach(module(provideLog));
+  
+  var forEach = angular.forEach;
+  beforeEach(module('ng.watchcollection.polyfill'));
+  /* jshint unused:false */
+  beforeEach(inject(function(ngWatchCollectionPolyfillService) { }));
+
   describe('$watch/$digest', function() {
-    // it('should clean up stable watches from $watchCollection', inject(function($rootScope) {
-    //   $rootScope.$watchCollection('::foo', function() {});
-    //   expect($rootScope.$$watchers.length).toEqual(1);
-
-    //   $rootScope.$digest();
-    //   expect($rootScope.$$watchers.length).toEqual(1);
-
-    //   $rootScope.foo = [];
-    //   $rootScope.$digest();
-    //   expect($rootScope.$$watchers.length).toEqual(0);
-    // }));
-
     describe('$watchCollection', function() {
+
       var log, $rootScope, deregister;
 
       beforeEach(inject(function(_$rootScope_, _log_) {
@@ -36,11 +33,11 @@ describe('Scope', function() {
 
       it('should not trigger if nothing change', inject(function($rootScope) {
         $rootScope.$digest();
-        expect(log).toEqual([{ newVal: undefined, oldVal: undefined, identical: true }]);
+        expect(log.toArray()).toEqual([{ newVal : undefined, oldVal : undefined, identical : true }]);
         log.reset();
 
         $rootScope.$digest();
-        expect(log).toEqual([]);
+        expect(log.toArray()).toEqual([]);
       }));
 
 
@@ -54,7 +51,7 @@ describe('Scope', function() {
         deregister();
 
         $rootScope.$digest();
-        expect(log).toEqual([]);
+        expect(log.toArray()).toEqual([]);
       });
 
 
@@ -66,13 +63,13 @@ describe('Scope', function() {
           // first time should be identical
           $rootScope.obj = ['a', 'b'];
           $rootScope.$digest();
-          expect(log).toEqual([{newVal: ['a', 'b'], oldVal: ['a', 'b'], identical: true}]);
+          expect(log.toArray()).toEqual([{newVal: ['a', 'b'], oldVal: ['a', 'b'], identical: true}]);
           log.reset();
 
           // second time should be different
           $rootScope.obj[1] = 'c';
           $rootScope.$digest();
-          expect(log).toEqual([{newVal: ['a', 'c'], oldVal: ['a', 'b']}]);
+          expect(log.toArray()).toEqual([{newVal: ['a', 'c'], oldVal: ['a', 'b']}]);
         }));
 
 
@@ -106,7 +103,7 @@ describe('Scope', function() {
 
           $rootScope.obj[0].name = 'foo';
           $rootScope.$digest();
-          expect(log).toEqual([]);
+          expect(log.toArray()).toEqual([]);
         });
 
 
@@ -146,10 +143,10 @@ describe('Scope', function() {
           }).not.toThrow();
         });
 
-        it('should watch array-like objects like arrays', function() {
+        it('should watch array-like objects like arrays', function () {
           var arrayLikelog = [];
           $rootScope.$watchCollection('arrayLikeObject', function logger(obj) {
-            forEach(obj, function(element) {
+            forEach(obj, function (element){
               arrayLikelog.push(element.name);
             });
           });
@@ -178,7 +175,7 @@ describe('Scope', function() {
           // second time not identical
           $rootScope.obj.a = 'c';
           $rootScope.$digest();
-          expect(log).toEqual([{newVal: {'a': 'c'}, oldVal: {'a': 'b'}}]);
+          expect(log.toArray()).toEqual([{newVal: {'a': 'c'}, oldVal: {'a': 'b'}}]);
         }));
 
 
@@ -243,7 +240,5 @@ describe('Scope', function() {
 
       });
     });
-
   });
-
 });

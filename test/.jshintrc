@@ -1,5 +1,6 @@
 {
   "node": true,
+  "quotmark": false,
   "globals": {
     "angular": false,
     "inject": false,
