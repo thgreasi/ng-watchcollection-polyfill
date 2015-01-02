@@ -1,4 +1,4 @@
-(function(window, document, undefined) {
+(function(window, angular, undefined) {
   'use strict';
 
   var $parse;
@@ -25,7 +25,6 @@
   }
   var isObject = angular.isObject;
   var isString = angular.isString;
-  var isUndefined = angular.isUndefined;
   /**
    * Checks if `obj` is a window object.
    *
@@ -235,4 +234,4 @@
 
         return service;
       }]);
-})(window, document);
+})(window, window.angular);

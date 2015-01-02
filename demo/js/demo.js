@@ -12,6 +12,7 @@ myapp.buildArray = function(name, size) {
   return array;
 };
 
+/* jshint unused:false */
 myapp.controller('demoController', function ($scope, ngWatchCollectionPolyfillService) {
   'use strict';
 
