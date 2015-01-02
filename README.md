@@ -1,4 +1,4 @@
-# Angular WatchCollection Polyfill [![Build Status](https://travis-ci.org/thgreasi/ng-watchcollection-polyfill.svg)](https://travis-ci.org/thgreasi/ng-watchcollection-polyfill) [![Coverage Status](https://coveralls.io/repos/thgreasi/ng-watchcollection-polyfill/badge.png?branch=master)](https://coveralls.io/r/thgreasi/ng-watchcollection-polyfill?branch=master)
+# Angular WatchCollection Polyfill [![Build Status](https://travis-ci.org/thgreasi/ng-watchcollection-polyfill.svg)](https://travis-ci.org/thgreasi/ng-watchcollection-polyfill) [![Coverage Status](https://img.shields.io/coveralls/thgreasi/ng-watchcollection-polyfill.svg?branch=master)](https://coveralls.io/r/thgreasi/ng-watchcollection-polyfill?branch=master)
 
 A module that backports $watchCollection to pre 1.2 AngularJS.
 
