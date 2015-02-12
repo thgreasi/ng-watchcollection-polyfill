@@ -1,22 +1,31 @@
 (function(window, angular, undefined) {
   'use strict';
 
-  var $watchCollection;
-
   angular.module('ng.watchcollection.polyfill', [])
     .factory('ngWatchCollectionPolyfillService',
       ['$rootScope', '$parse', function(rootScope, parse) {
-        function getWatchCollection() {
+        var $watchCollection, originalNewScope;
+
+        function getWatchCollection(parse) {
           $watchCollection = $watchCollection || $watchCollectionProvider(parse);
           return $watchCollection;
         }
 
         var service = {
           polyfill: function() {
-            rootScope.$watchCollection = rootScope.$watchCollection || getWatchCollection();
+            rootScope.$watchCollection = rootScope.$watchCollection || getWatchCollection(parse);
+
+            if (!originalNewScope) {
+              originalNewScope = rootScope.$new;
+              rootScope.$new = function() {
+                var newScope = originalNewScope.call(this, arguments);
+                newScope.$watchCollection = newScope.$watchCollection || getWatchCollection(parse);
+                return newScope;
+              };
+            }
           },
           isPolyfilled: function() {
-            return rootScope.$watchCollection === getWatchCollection();
+            return rootScope.$watchCollection === getWatchCollection(parse);
           }
         };
 
