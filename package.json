@@ -1,6 +1,6 @@
 {
   "name": "ng-watchcollection-polyfill",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A module that backports $watchCollection to pre 1.2 angular",
   "main": "./src/ng-watchcollection-polyfill.js",
   "directories": {
