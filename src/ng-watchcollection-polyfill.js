@@ -1,6 +1,25 @@
 (function(window, angular, undefined) {
   'use strict';
 
+  angular.module('ng.watchcollection.polyfill', [])
+    .factory('ngWatchCollectionPolyfillService',
+      ['$rootScope', '$parse', function(rootScope, parse) {
+        $parse = parse;
+
+        var service = {
+          polyfill: function() {
+            rootScope.$watchCollection = rootScope.$watchCollection || $watchCollection;
+          },
+          isPolyfilled: function() {
+            return rootScope.$watchCollection === $watchCollection;
+          }
+        };
+
+        service.polyfill();
+
+        return service;
+      }]);
+
   var $parse;
   var isArray = angular.isArray;
   /**
@@ -215,23 +234,4 @@
 
     return this.$watch($watchCollectionWatch, $watchCollectionAction);
   };
-
-  angular.module('ng.watchcollection.polyfill', [])
-    .factory('ngWatchCollectionPolyfillService',
-      ['$rootScope', '$parse', function(rootScope, parse) {
-        $parse = parse;
-
-        var service = {
-          polyfill: function() {
-            rootScope.$watchCollection = rootScope.$watchCollection || $watchCollection;
-          },
-          isPolyfilled: function() {
-            return rootScope.$watchCollection === $watchCollection;
-          }
-        };
-
-        service.polyfill();
-
-        return service;
-      }]);
 })(window, window.angular);
