@@ -4,28 +4,24 @@
   angular.module('ng.watchcollection.polyfill', [])
     .factory('ngWatchCollectionPolyfillService',
       ['$rootScope', '$parse', function(rootScope, parse) {
-        var $watchCollection, originalNewScope;
-
-        function getWatchCollection(parse) {
-          $watchCollection = $watchCollection || $watchCollectionProvider(parse);
-          return $watchCollection;
-        }
+        var originalNewScope,
+            $polyfilledWatchCollection = $watchCollectionProvider(parse);
 
         var service = {
           polyfill: function() {
-            rootScope.$watchCollection = rootScope.$watchCollection || getWatchCollection(parse);
+            rootScope.$watchCollection = rootScope.$watchCollection || $polyfilledWatchCollection;
 
-            if (!originalNewScope) {
+            if (!originalNewScope && this.isPolyfilled()) {
               originalNewScope = rootScope.$new;
               rootScope.$new = function() {
                 var newScope = originalNewScope.call(this, arguments);
-                newScope.$watchCollection = newScope.$watchCollection || getWatchCollection(parse);
+                newScope.$watchCollection = newScope.$watchCollection || $polyfilledWatchCollection;
                 return newScope;
               };
             }
           },
           isPolyfilled: function() {
-            return rootScope.$watchCollection === getWatchCollection(parse);
+            return rootScope.$watchCollection === $polyfilledWatchCollection;
           }
         };
 
