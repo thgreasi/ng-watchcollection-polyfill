@@ -14,7 +14,7 @@
             if (!originalNewScope && this.isPolyfilled()) {
               originalNewScope = rootScope.$new;
               rootScope.$new = function() {
-                var newScope = originalNewScope.call(this, arguments);
+                var newScope = originalNewScope.apply(this, arguments);
                 newScope.$watchCollection = newScope.$watchCollection || $polyfilledWatchCollection;
                 return newScope;
               };
